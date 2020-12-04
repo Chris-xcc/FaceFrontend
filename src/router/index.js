@@ -4,7 +4,6 @@ import Home from '../views/Home'
 import store from '../store'
 
 Vue.use(VueRouter)
-
 const routes = [
   {
     path: '/',
@@ -12,11 +11,18 @@ const routes = [
     component: () => import('../views/Home'),
     children: [
       {
+        path: '/',
+        name: 'Index',
+        component: () => import('../components/Index'),
+      },
+      {
         path: '/sign',
+        name: 'Sign',
         component: () => import('../views/Sign'),
       },
       {
         path: '/user',
+        name: 'User',
         component: () => import('../views/User'),
       }, {
         path: '/face',
@@ -34,14 +40,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () => import('../views/StuInfo')
       },
-      {
-        path: '/a',
-        name: 'A',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('../views/A')
-      },
+
     ]
   },
   {
@@ -82,8 +81,8 @@ router.beforeEach(function (to, from, next) {
 
   if (store.state.token === '') {
 
-    if (to.path === '/register') { 
-      
+    if (to.path === '/register') {
+
     }
     else if (to.path !== '/login') {
       return next('/login')

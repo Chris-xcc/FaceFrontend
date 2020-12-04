@@ -1,4 +1,7 @@
 <template>
+<div class="stu-info">
+  <el-button type="primary" @click="trainModel" class="btn">更新学生信息</el-button>
+
   <el-table
     stripe
     :data="stuData"
@@ -27,6 +30,7 @@
       </template>
     </el-table-column>
   </el-table>
+  </div>
 </template>
 
 <script>
@@ -58,8 +62,20 @@ export default {
         console.log(res.data);
 
         this.stuData = res.data;
-      });
+      }).catch((err)=>{
+        console.log(err)
+      })
     },
+    trainModel(){
+      get({
+        url:'/train/',
+        headers: { "X-CSRFToken": getCookie("csrftoken") },
+      }).then((res)=>{
+        console.log(res)
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
   },
   mounted() {
     this.getStuInfo();
@@ -67,4 +83,8 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+  .btn{
+    float: left;
+    margin: 20px auto;
+  }
 </style>

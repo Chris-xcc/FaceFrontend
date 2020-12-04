@@ -37,8 +37,8 @@
 
             <el-form-item>
               <el-button type="danger" class="submitBtn" @click="submit" round
-                >修改密码</el-button
-              >
+                >修改密码
+              </el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -55,7 +55,11 @@
         :before-upload="beforeAvatarUpload"
         :auto-upload="false"
       >
-        <img v-if="this.$store.state.face" :src="'http://localhost:8000/media/' + this.$store.state.face" class="avatar" />
+        <img
+          v-if="getFace()"
+          :src="`http://localhost:8000/media/` + userImg"
+          class="avatar"
+        />
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
       <div class="title">人脸图片</div>
@@ -64,7 +68,7 @@
 </template>
 
 <script>
-import { post, put } from "../utils/request";
+import { get, put } from "../utils/request";
 import { getCookie } from "../utils/cookie";
 
 export default {
@@ -84,7 +88,8 @@ export default {
     };
 
     return {
-      imageUrl: "",
+      imageUrl: "http://localhost:8000/media/",
+      userImg: "",
       PasswordForm: {
         new_password: "",
         check_password: "",
@@ -157,7 +162,7 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
-      console.log(res);
+      // console.log(res);
       console.log(this.imageUrl);
     },
     beforeAvatarUpload(file) {
@@ -175,7 +180,7 @@ export default {
     getFile(file, fileList) {
       let fileName = file.name;
       let regex = /(.jpg|.jpeg|.png)$/;
-      console.log(fileName);
+      // console.log(fileName);
       if (regex.test(fileName.toLowerCase())) {
         this.imageUrl = URL.createObjectURL(file.raw);
       } else {
@@ -188,8 +193,29 @@ export default {
           url: "/user/1/",
           data: { face: image },
           headers: { "X-CSRFToken": getCookie("csrftoken") },
-        });
-        console.log(image);
+        })
+          .then((response) => {
+            // console.log(response);
+            get({
+              url: "/user/1/",
+              headers: { "X-CSRFToken": getCookie("csrftoken") },
+            })
+              .then((response) => {
+                console.log(response);
+                window.sessionStorage.setItem("face", response.data.face);
+                this.imageUrl = response.data.face;
+                this.userImg = response.data.face;
+                // this.getFace()
+                console.log(this.imageUrl);
+                // return response.data.face
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       });
     },
     getBase64(file) {
@@ -218,6 +244,21 @@ export default {
         this.$message.error("请选择图片文件");
       }
     },
+    getUserImg() {
+      get({
+        url: "/user/1/",
+        headers: { "X-CSRFToken": getCookie("csrftoken") },
+      }).then((response) => {
+        this.imageUrl = this.imageUrl + response.data.face;
+        this.userImg = response.data.face;
+      });
+    },
+    getFace() {
+      return this.imageUrl !== "http://localhost:8000/media/";
+    },
+  },
+  mounted() {
+    this.getUserImg();
   },
 };
 </script>
@@ -270,9 +311,11 @@ export default {
       position: relative;
       overflow: hidden;
     }
+
     .avatar-uploader:hover {
       border-color: #409eff;
     }
+
     .avatar-uploader-icon {
       font-size: 28px;
       color: #8c939d;
@@ -281,6 +324,7 @@ export default {
       line-height: 178px;
       text-align: center;
     }
+
     .avatar {
       width: 178px;
       height: 200px;

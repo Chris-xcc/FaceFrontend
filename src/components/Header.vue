@@ -2,7 +2,7 @@
   <el-row class="header">
     <!-- 左边Logo -->
     <el-col :span="4" class="logo">
-      <img @click="tohome" src="../assets/logo.png" alt="" />
+      <img @click="tohome" src="../assets/img/logo.png" alt="" />
     </el-col>
     <!-- 中间导航区域 -->
     <el-col class="main" :span="16">
@@ -50,7 +50,7 @@
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
             <el-dropdown-item
               command="admin"
-              v-if="$store.state.is_superuser===true"
+              v-if="isSuperUser"
               >后台系统</el-dropdown-item
             >
           </el-dropdown-menu>
@@ -97,6 +97,10 @@ export default {
       }
       // console.log(this.$store.state.userInfo)
     },
+    isSuperUser(){
+      const is_superuser = window.sessionStorage.getItem('is_superuser')
+      return is_superuser === 'true';
+    }
   },
   mounted() {
     // console.log(this.$store.state.userInfo.username);

@@ -77,6 +77,8 @@ export default {
 }
 .el-main {
   background-color: #eaedf1;
+    padding: 0;
+
 }
 
 .toggle-button {

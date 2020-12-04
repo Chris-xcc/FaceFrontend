@@ -118,10 +118,10 @@ export default {
 
     return {
       RegisterForm: {
-        username: "admin1",
-        number: "20171272100",
-        password: "123456",
-        check_password: "123456",
+        username: "",
+        number: "",
+        password: "",
+        check_password: "",
         sex: "",
       },
       loading: false,

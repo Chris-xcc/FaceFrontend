@@ -79,8 +79,8 @@ export default {
     };
     return {
       LoginForm: {
-        username: "2017127249",
-        password: "123456",
+        username: "",
+        password: "",
       },
       loading: false,
       rule: {
@@ -131,7 +131,7 @@ export default {
                 window.sessionStorage.setItem("number", response.data.user.number);
                 window.sessionStorage.setItem("face", response.data.user.face);
                 window.sessionStorage.setItem("is_superuser", response.data.user.is_superuser);
-               
+
                 this.$store.commit({
                   type: SET_TOKEN,
                   token: "Token " + response.data.token,
@@ -154,6 +154,7 @@ export default {
                   });
                   // 延迟时间：0.2秒
                 }, 200);
+                // location.reload()
                 // this.$router.push({ path: "/" });
               } else {
                 this.$confirm("学号或密码错误", "提示", {

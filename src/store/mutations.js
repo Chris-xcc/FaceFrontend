@@ -20,7 +20,14 @@ export default {
 
   [REMOVE_TOKEN](state) {
     state.token = ''
-    state.userInfo = ''
+    state.id = ''
+    state.username = ''
+    state.sex = ''
+    state.number = ''
+    state.face = ''
+    state.is_superuser = ''
+
+    state.signId = ''
     // console.log(payload.token);
   },
 

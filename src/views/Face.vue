@@ -5,7 +5,7 @@
         id="myVideo"
         muted
         loop
-        poster="./1.gif"
+        poster="../assets/img/CameraPlaceholder.gif"
         playsinline
         @loadedmetadata="fnRun"
       ></video>
@@ -15,7 +15,8 @@
       <div class="btn">
         <label>面板操作：</label>
         <button @click="fnOpen">启动摄像头</button>
-        <button @click="fnClose">签到</button>
+        <button @click="fnClose">关闭摄像头</button>
+        <button @click="fnSign">签到</button>
       </div>
     </div>
   </div>
@@ -23,7 +24,7 @@
 
 <script>
 import * as faceapi from "face-api.js";
-import { post, put } from "../utils/request";
+import {  put } from "../utils/request";
 import { getCookie } from "../utils/cookie";
 export default {
   name: "Face",
@@ -102,7 +103,7 @@ export default {
     },
     // 人脸面部勘探轮廓识别绘制
     async fnRunFaceLandmark() {
-      console.log("RunFaceLandmark");
+      // console.log("RunFaceLandmark");
       if (this.videoEl.paused) return clearTimeout(this.timeout);
       // 识别绘制人脸信息
       const result = await faceapi[this.detectFace](
@@ -154,7 +155,7 @@ export default {
       alert("视频媒体流获取错误" + error);
     },
     // 结束摄像头视频媒体
-    fnClose() {
+    fnSign() {
       // this.canvasEl
       //   .getContext("2d")
       //   .clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
@@ -187,8 +188,22 @@ export default {
           });
         }
         // console.log(res);
-      });
+      }).catch((err)=>{
+        console.log(err)
+      })
 
+      this.videoEl.pause();
+      clearTimeout(this.timeout);
+      if (typeof window.stream === "object") {
+        window.stream.getTracks().forEach((track) => track.stop());
+        window.stream = "";
+        this.videoEl.srcObject = null;
+      }
+    },
+    fnClose() {
+      this.canvasEl
+              .getContext("2d")
+              .clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
       this.videoEl.pause();
       clearTimeout(this.timeout);
       if (typeof window.stream === "object") {

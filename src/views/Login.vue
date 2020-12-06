@@ -150,7 +150,7 @@ export default {
                 setTimeout(() => {
                   //需要延迟的代码 :3秒后延迟跳转到首页，可以加提示什么的
                   this.$router.push({
-                    name: "Home",
+                    name: "Index",
                   });
                   // 延迟时间：0.2秒
                 }, 200);

@@ -3,12 +3,12 @@
     <el-table
       :data="signData"
       border
-      style="width: 100%"
+      style="width: 95%"
       stripe
       :header-cell-style="headClass"
       align="center"
       :cell-style="rowClass"
-      @row-click="openDetails"
+      :highlight-current-row='true'
     >
       <el-table-column label="标题">
         <template slot-scope="scope">
@@ -22,6 +22,11 @@
           <span>
             {{ scope.row.description }}
           </span>
+        </template>
+      </el-table-column>
+      <el-table-column label="  ">
+        <template slot-scope="scope">
+          <el-button @click="openDetails(scope.row.id)">查看</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -54,7 +59,7 @@ export default {
         url: "/sign/",
         headers: { "X-CSRFToken": getCookie("csrftoken") },
       }).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
 
         this.signData = res.data;
       });
@@ -63,7 +68,7 @@ export default {
       window.sessionStorage.setItem("signId", row.id);
       this.$store.commit({
         type: GET_SIGNID,
-        signId: row.id,
+        signId: row,
       });
       this.$router.push({
         name: "Face",
@@ -77,6 +82,8 @@ export default {
 </script>
 
 <style scoped>
+@import url('../style/tabel.css');
+
 span {
   cursor: pointer;
 }

@@ -215,6 +215,10 @@ export default {
           })
           .catch((err) => {
             console.log(err);
+            this.$confirm("图片不符合要求,请刷新页面重试", "提示", {
+              confirmButtonText: "确定",
+              type: "error",
+            });
           });
       });
     },

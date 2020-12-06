@@ -5,10 +5,12 @@
   <el-table
     stripe
     :data="stuData"
-    style="width: 100%"
+    style="width: 95%"
     :header-cell-style="headClass"
     align="center"
     :cell-style="rowClass"
+    :highlight-current-row='true'
+    border
   >
     <el-table-column prop="id" label="序号"> </el-table-column>
     <el-table-column prop="number" label="学号"> </el-table-column>
@@ -59,7 +61,7 @@ export default {
         url: "/user/",
         headers: { "X-CSRFToken": getCookie("csrftoken") },
       }).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
 
         this.stuData = res.data;
       }).catch((err)=>{
@@ -83,8 +85,11 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+@import url('../style/tabel.css');
+
   .btn{
     float: left;
     margin: 20px auto;
+    margin-left: 40px;
   }
 </style>

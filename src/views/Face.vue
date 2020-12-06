@@ -24,7 +24,7 @@
 
 <script>
 import * as faceapi from "face-api.js";
-import {  put } from "../utils/request";
+import { put } from "../utils/request";
 import { getCookie } from "../utils/cookie";
 export default {
   name: "Face",
@@ -168,29 +168,29 @@ export default {
         url: `/sign_stu/${this.$store.state.signId}/`,
         data: { face: image },
         headers: { "X-CSRFToken": getCookie("csrftoken") },
-      }).then((res) => {
-        if(res.status === 200){
-          this.$confirm(res.data, "提示", {
-            confirmButtonText: "确定",
-            type: "success",
-          });
-        }
-       else if(res.status === 202){
-         this.$confirm(res.data, "提示", {
-           confirmButtonText: "确定",
-           type: "error",
-         });
-       }
-       else {
-          this.$confirm('服务器错误', "提示", {
-            confirmButtonText: "确定",
-            type: "error",
-          });
-        }
-        // console.log(res);
-      }).catch((err)=>{
-        console.log(err)
       })
+        .then((res) => {
+          if (res.status === 200) {
+            this.$confirm(res.data, "提示", {
+              confirmButtonText: "确定",
+              type: "success",
+            });
+          } else if (res.status === 202) {
+            this.$confirm(res.data, "提示", {
+              confirmButtonText: "确定",
+              type: "error",
+            });
+          } else {
+            this.$confirm("服务器错误", "提示", {
+              confirmButtonText: "确定",
+              type: "error",
+            });
+          }
+          // console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
       this.videoEl.pause();
       clearTimeout(this.timeout);
@@ -202,8 +202,8 @@ export default {
     },
     fnClose() {
       this.canvasEl
-              .getContext("2d")
-              .clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
+        .getContext("2d")
+        .clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
       this.videoEl.pause();
       clearTimeout(this.timeout);
       if (typeof window.stream === "object") {
@@ -213,8 +213,9 @@ export default {
       }
     },
   },
-  beforeDestroy() {
-    // this.fnClose();
+
+  destroyed() {
+    this.fnClose();
   },
 };
 </script>

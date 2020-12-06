@@ -16,7 +16,7 @@
         <label>面板操作：</label>
         <button @click="fnOpen">启动摄像头</button>
         <button @click="fnClose">关闭摄像头</button>
-        <button @click="fnSign">签到</button>
+        <button @click="fnSign">考勤</button>
       </div>
     </div>
   </div>

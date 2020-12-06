@@ -2,7 +2,9 @@
   <el-row class="header">
     <!-- 左边Logo -->
     <el-col :span="4" class="logo">
+      <div class="img">
       <img @click="tohome" src="../assets/img/logo.png" alt="" />
+      </div>
     </el-col>
     <!-- 中间导航区域 -->
     <el-col class="main" :span="16">
@@ -50,7 +52,7 @@
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
             <el-dropdown-item
               command="admin"
-              v-if="isSuperUser"
+              v-if="isSuperUser()"
               >后台系统</el-dropdown-item
             >
           </el-dropdown-menu>
@@ -114,29 +116,42 @@ export default {
   height: 60px;
   margin: 0;
   background: #fff;
+  // background: black;
   position: fixed;
   top: 0;
   left: 0;
   box-shadow: 0 0 25px #666;
 }
-.logo img {
-  width: 60px;
-  height: 60px;
-  cursor: pointer;
+
+.logo {
+  .img{
+    width: 200px;
+    img {
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+    }
+  }
+
 }
-.button {
-  margin: 15px 0;
+.user{
+  .button {
+    margin: 15px 0;
+  }
+  .login {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .register {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .username {
+    margin-top: 20px;
+    font-size: 20px;
+  }
 }
-.login {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-.register {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.username {
-  margin-top: 20px;
-  font-size: 20px;
-}
+
+
 </style>

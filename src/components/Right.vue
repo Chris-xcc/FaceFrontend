@@ -16,13 +16,25 @@
             <i class="el-icon-s-custom"></i>
             <span slot="title">个人中心</span>
           </el-menu-item>
-          <el-menu-item index="/sign">
-            <i class="el-icon-s-grid"></i>
-            <span slot="title">签到管理</span>
-          </el-menu-item>
-          <el-menu-item index="/stu" v-if="isSuperUser">
+
+          <el-menu-item index="/stu" v-if="isSuperUser()">
             <i class="el-icon-s-order"></i>
             <span slot="title">学生信息</span>
+          </el-menu-item>
+
+          <el-menu-item index="/sign">
+            <i class="el-icon-s-grid"></i>
+            <span slot="title">考勤管理</span>
+          </el-menu-item>
+          
+          <el-menu-item index="/sign_info" v-if="isSuperUser()">
+            <i class="el-icon-s-order"></i>
+            <span slot="title">考勤情况</span>
+          </el-menu-item>
+
+          <el-menu-item index="/sign_create" v-if="isSuperUser()">
+            <i class="el-icon-s-order"></i>
+            <span slot="title">考勤任务发布</span>
           </el-menu-item>
         </el-menu>
   </div>

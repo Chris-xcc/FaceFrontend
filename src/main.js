@@ -9,7 +9,8 @@ import store from './store'
 import './plugins/element'
 import './style/normalize.css'
 import 'element-ui/lib/theme-chalk/index.css';
-
+import Elementui from 'element-ui'
+Vue.use(Elementui)
 
 
 

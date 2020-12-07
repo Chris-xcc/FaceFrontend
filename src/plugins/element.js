@@ -18,6 +18,8 @@ import {
   Row,
   Col,
   Upload,
+  Select,
+  Option,
 } from 'element-ui';
 
 Vue.use(Container);
@@ -38,4 +40,6 @@ Vue.use(TableColumn);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(Upload);
+Vue.use(Select);
+Vue.use(Option);
 

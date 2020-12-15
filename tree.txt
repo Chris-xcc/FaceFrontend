@@ -1,0 +1,29 @@
+front  前端项目目录结构
+├── babel.config.js
+├── dist  生成打包后的文件
+├── node_modules  安装的依赖包
+├── package-lock.json
+├── package.json  记录项目的依赖包
+├── public  public中的静态资源会被复制到输出目录dist中
+├── README.md  项目文档
+├── src  源码
+│   ├── api  封装与后端交互的方法
+│   │   └── index.js  与后端交互的方法的统一出口
+│   ├── App.vue  路由组件的顶层路由
+│   ├── assets  放置静态资源，例如图片，字体，图标
+│   ├── components  公共组件
+│   ├── main.js  项目的入口文件
+│   ├── plugins  使用element-ui框架
+│   │   └── element.js  导入相关的组件
+│   ├── router  路由的相关配置
+│   │   └── index.js  导出路由配置
+│   ├── store  vuex的相关配置
+│   ├── style  样式文件
+│   │   ├── header.css  头部样式
+│   │   ├── normalize.css  重置浏览器默认样式
+│   │   └── tabel.css  表格样式
+│   ├── utils  工具包
+│   │   ├── cookie.js  设置网络请求头X-CSRFToken
+│   │   └── request.js  封装使用的axios方法，拦截器等
+│   └── views  所有路由组件
+└── vue.config.js  vue全局配置

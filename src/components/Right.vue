@@ -2,9 +2,9 @@
   <div class="right">
         <el-menu
           default-active="1"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b"
+          
+          text-color="#000000"
+          active-text-color="#FF0000"
           :router="true"
         >
           <el-menu-item index="/">
@@ -59,5 +59,6 @@ export default {
 .el-menu {
   height: 100%;
   border-right: 0;
+  background: rgb(216, 228, 235);
 }
 </style>

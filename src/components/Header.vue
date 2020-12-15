@@ -115,7 +115,7 @@ export default {
   width: 100%;
   height: 60px;
   margin: 0;
-  background: #fff;
+  background:	#b6e2f3;
   // background: black;
   position: fixed;
   top: 0;

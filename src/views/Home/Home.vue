@@ -66,7 +66,7 @@ export default {
   height: 100%;
 }
 
-.el-header{
+.el-header {
   z-index: 100;
 }
 .el-aside {
@@ -76,9 +76,9 @@ export default {
   }
 }
 .el-main {
-  background-color: #eaedf1;
-    padding: 0;
-
+  // background-color: #eaedf1;
+  background-color: rgb(226, 236, 243);
+  padding: 0;
 }
 
 .toggle-button {

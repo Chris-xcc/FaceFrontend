@@ -28,7 +28,7 @@
           </el-menu-item>
           
           <el-menu-item index="/sign_info" v-if="isSuperUser()">
-            <i class="el-icon-s-order"></i>
+            <i class="el-icon-s-management"></i>
             <span slot="title">考勤情况</span>
           </el-menu-item>
 

@@ -271,7 +271,7 @@ export default {
 .user {
   margin: 100px;
   height: 400px;
-  background-color:#FFFFFF;
+  background-color: #ffffff;
   display: flex;
   justify-content: space-around;
   border: 1px solid black;

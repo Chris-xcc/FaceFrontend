@@ -3,7 +3,7 @@
     <!-- 左边Logo -->
     <el-col :span="4" class="logo">
       <div class="img">
-      <img @click="tohome" src="../assets/img/logo.png" alt="" />
+        <img @click="tohome" src="../assets/img/logo.png" alt="" />
       </div>
     </el-col>
     <!-- 中间导航区域 -->
@@ -12,11 +12,12 @@
         :default-active="$route.path"
         class="menu"
         router
-        mode="horizontal"
+        mode="vertical"
         @select="handleSelect"
         active-text-color="#000"
       >
         <!-- 循环写的路由，其中路由中有  hidden：true 的就不加入循环 -->
+        <div class="title">人脸识别考勤系统</div>
       </el-menu>
     </el-col>
 
@@ -50,9 +51,7 @@
           </div>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
-            <el-dropdown-item
-              command="admin"
-              v-if="isSuperUser()"
+            <el-dropdown-item command="admin" v-if="isSuperUser()"
               >后台系统</el-dropdown-item
             >
           </el-dropdown-menu>
@@ -90,7 +89,7 @@ export default {
         this.$store.commit({
           type: REMOVE_TOKEN,
         });
-        window.sessionStorage.clear()
+        window.sessionStorage.clear();
         this.$router.push({
           name: "Login",
         });
@@ -99,10 +98,10 @@ export default {
       }
       // console.log(this.$store.state.userInfo)
     },
-    isSuperUser(){
-      const is_superuser = window.sessionStorage.getItem('is_superuser')
-      return is_superuser === 'true';
-    }
+    isSuperUser() {
+      const is_superuser = window.sessionStorage.getItem("is_superuser");
+      return is_superuser === "true";
+    },
   },
   mounted() {
     // console.log(this.$store.state.userInfo.username);
@@ -115,16 +114,28 @@ export default {
   width: 100%;
   height: 60px;
   margin: 0;
-  background:	#b6e2f3;
+  background: #cedfeb;
   // background: black;
   position: fixed;
   top: 0;
   left: 0;
   box-shadow: 0 0 25px #666;
+
+  .main{
+    .el-menu{
+      background-color: #cedfeb;
+      border-right: none;
+    }
+    .title{
+      height: 60px;
+      line-height: 60px;
+      font-size: 25px;
+    }
+  }
 }
 
 .logo {
-  .img{
+  .img {
     width: 200px;
     img {
       width: 60px;
@@ -132,9 +143,8 @@ export default {
       cursor: pointer;
     }
   }
-
 }
-.user{
+.user {
   .button {
     margin: 15px 0;
   }
@@ -152,6 +162,4 @@ export default {
     font-size: 20px;
   }
 }
-
-
 </style>

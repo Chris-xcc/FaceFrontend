@@ -70,33 +70,33 @@ const router = new VueRouter({
   mode: 'history'
 })
 
-router.beforeEach(function (to, from, next) {
+// router.beforeEach(function (to, from, next) {
 
-  if (store.state.token === '') {
+//   if (store.state.token === '') {
 
-    if (to.path === '/register') {
+//     if (to.path === '/register') {
 
-    }
-    else if (to.path !== '/login') {
-      return next('/login')
-    }
-  }
-  next()
-})
+//     }
+//     else if (to.path !== '/login') {
+//       return next('/login')
+//     }
+//   }
+//   next()
+// })
 
-router.beforeEach(function (to, from, next) {
+// router.beforeEach(function (to, from, next) {
 
-  if (store.state.is_superuser === true || store.state.is_superuser === 'true') {
-    next()
-  }
-  else {
-    if (to.path === '/sign_info' || to.path === '/stu' || to.path === '/sign_create') {
-      return next('/')
-    }
-  }
-  next()
+//   if (store.state.is_superuser === true || store.state.is_superuser === 'true') {
+//     next()
+//   }
+//   else {
+//     if (to.path === '/sign_info' || to.path === '/stu' || to.path === '/sign_create') {
+//       return next('/')
+//     }
+//   }
+//   next()
 
-})
+// })
 
 
 const originalPush = VueRouter.prototype.push

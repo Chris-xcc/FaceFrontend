@@ -4,7 +4,7 @@
           default-active="1"
           
           text-color="#000000"
-          active-text-color="#FF0000"
+          active-text-color="#008B8B"
           :router="true"
         >
           <el-menu-item index="/">
@@ -59,6 +59,6 @@ export default {
 .el-menu {
   height: 100%;
   border-right: 0;
-  background: rgb(216, 228, 235);
+  background: 	#cfe0eb;
 }
 </style>

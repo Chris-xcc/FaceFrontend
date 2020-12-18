@@ -21,7 +21,7 @@
         <el-input
           type="text"
           v-model="RegisterForm.number"
-          prefix-icon="el-icon-s-custom"
+          prefix-icon="el-icon-link"
           placeholder="学号"
         >
         </el-input>
@@ -45,7 +45,7 @@
         <el-input
           type="password"
           v-model="RegisterForm.check_password"
-          prefix-icon="el-icon-lock"
+          prefix-icon="el-icon-key"
           placeholder="确认密码"
         >
         </el-input>
@@ -253,11 +253,16 @@ export default {
 
 
 <style lang="less" scoped>
-.login {
-  margin: 50px auto;
-}
+@import url('../style/center.css');
+
+// .login {
+//   position: absolute;
+//   left: 50%;
+//   top: 50%;
+//   transform: translate3d(-50%, -50%, 0);
+// }
 .register-form {
-  margin: 50px auto;
+  // margin: 50px auto;
   width: 300px;
   background: #fff;
   box-shadow: 0 0 35px #b4bccc;

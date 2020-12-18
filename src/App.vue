@@ -24,5 +24,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: RGB(225, 255, 255);
 }
 </style>

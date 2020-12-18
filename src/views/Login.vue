@@ -126,11 +126,20 @@ export default {
                   "Token " + response.data.token
                 );
                 window.sessionStorage.setItem("id", response.data.user.id);
-                window.sessionStorage.setItem("username", response.data.user.username);
+                window.sessionStorage.setItem(
+                  "username",
+                  response.data.user.username
+                );
                 window.sessionStorage.setItem("sex", response.data.user.sex);
-                window.sessionStorage.setItem("number", response.data.user.number);
+                window.sessionStorage.setItem(
+                  "number",
+                  response.data.user.number
+                );
                 window.sessionStorage.setItem("face", response.data.user.face);
-                window.sessionStorage.setItem("is_superuser", response.data.user.is_superuser);
+                window.sessionStorage.setItem(
+                  "is_superuser",
+                  response.data.user.is_superuser
+                );
 
                 this.$store.commit({
                   type: SET_TOKEN,
@@ -182,12 +191,17 @@ export default {
 
 
 <style lang="less" scoped>
-.login {
-  margin: 50px auto;
-}
+@import url('../style/center.css');
+
+// .login {
+//   position: absolute;
+//   left: 50%;
+//   top: 50%;
+//   transform: translate3d(-50%, -50%, 0);
+// }
 
 .login-form {
-  margin: 50px auto;
+  // padd: 50px auto;
   width: 300px;
   background: #fff;
   box-shadow: 0 0 35px #b4bccc;

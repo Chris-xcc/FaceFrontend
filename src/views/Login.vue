@@ -1,57 +1,60 @@
 <template>
-  <div class="login">
-    <el-form
-      :model="LoginForm"
-      ref="LoginForm"
-      :rules="rule"
-      label-width="0"
-      class="login-form"
-    >
-      <div class="title">用户登录</div>
-      <el-form-item prop="username">
-        <el-input
-          type="text"
-          v-model="LoginForm.username"
-          prefix-icon="el-icon-s-custom"
-          placeholder="学号"
-        >
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input
-          type="password"
-          v-model="LoginForm.password"
-          prefix-icon="el-icon-lock"
-          placeholder="密码"
-        >
-        </el-input>
-      </el-form-item>
+  <div class="login-container">
+    <div class="top-title">人脸识别考勤系统</div>
+    <div class="login">
+      <el-form
+        :model="LoginForm"
+        ref="LoginForm"
+        :rules="rule"
+        label-width="0"
+        class="login-form"
+      >
+        <div class="title">用户登录</div>
+        <el-form-item prop="username">
+          <el-input
+            type="text"
+            v-model="LoginForm.username"
+            prefix-icon="el-icon-s-custom"
+            placeholder="学号"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input
+            type="password"
+            v-model="LoginForm.password"
+            prefix-icon="el-icon-lock"
+            placeholder="密码"
+          >
+          </el-input>
+        </el-form-item>
 
-      <el-form-item>
-        <el-button
-          type="danger"
-          class="submitBtn"
-          round
-          @click.native.prevent="submit"
-          :loading="loading"
-          >登录
-        </el-button>
-      </el-form-item>
-      <el-form-item>
-        <el-button
-          type="primary"
-          class="resetBtn"
-          round
-          @click.native.prevent="reset"
-          >重置
-        </el-button>
-      </el-form-item>
+        <el-form-item>
+          <el-button
+            type="danger"
+            class="submitBtn"
+            round
+            @click.native.prevent="submit"
+            :loading="loading"
+            >登录
+          </el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            type="primary"
+            class="resetBtn"
+            round
+            @click.native.prevent="reset"
+            >重置
+          </el-button>
+        </el-form-item>
 
-      <hr />
-      <span> 还没有账号,马上去 </span>
-      <span class="to" @click="toregister">注册</span>
-      <!-- </el-form-item> -->
-    </el-form>
+        <hr />
+        <span> 还没有账号,马上去 </span>
+        <span class="to" @click="toregister">注册</span>
+        <!-- </el-form-item> -->
+      </el-form>
+    </div>
   </div>
 </template>
 
@@ -191,7 +194,7 @@ export default {
 
 
 <style lang="less" scoped>
-@import url('../style/center.css');
+@import url("../style/center.css");
 
 // .login {
 //   position: absolute;

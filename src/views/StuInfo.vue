@@ -74,6 +74,10 @@ export default {
         headers: { "X-CSRFToken": getCookie("csrftoken") },
       }).then((res)=>{
         console.log(res)
+        this.$message({
+                  message: res.data,
+                  type: "success",
+                });
       }).catch((err)=>{
         console.log(err)
       })

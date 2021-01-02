@@ -163,7 +163,7 @@ export default {
       // 获取图片base64链接
       const image = this.canvasEl.toDataURL("image/jpg").split(",")[1];
 
-      // console.log(image);
+      // console.log(this.$store.state.signId);
       put({
         url: `/sign_stu/${this.$store.state.signId}/`,
         data: { face: image },

@@ -1,4 +1,6 @@
 <template>
+<div class="register-container">
+    <div class="top-title">人脸识别考勤系统</div>
   <div class="login">
     <el-form
       :model="RegisterForm"
@@ -77,6 +79,7 @@
       <!-- </el-form-item> -->
     </el-form>
   </div>
+</div>
 </template>
 
 <script>
@@ -253,7 +256,7 @@ export default {
 
 
 <style lang="less" scoped>
-@import url('../style/center.css');
+@import url("../style/center.css");
 
 // .login {
 //   position: absolute;
@@ -262,7 +265,7 @@ export default {
 //   transform: translate3d(-50%, -50%, 0);
 // }
 .register-form {
-  // margin: 50px auto;
+  margin-top: 30px;
   width: 300px;
   background: #fff;
   box-shadow: 0 0 35px #b4bccc;

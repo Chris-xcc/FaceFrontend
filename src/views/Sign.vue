@@ -65,7 +65,8 @@ export default {
       });
     },
     openDetails(row) {
-      window.sessionStorage.setItem("signId", row.id);
+      // console.log(row);
+      window.sessionStorage.setItem("signId", row);
       this.$store.commit({
         type: GET_SIGNID,
         signId: row,

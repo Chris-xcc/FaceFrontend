@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div class="user-face">
+    <!-- <div class="user-face">
       <el-upload
         class="avatar-uploader"
         action=""
@@ -63,6 +63,29 @@
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
       <div class="title">人脸图片</div>
+    </div> -->
+    <div class="user-face" v-if="getFace()">
+      <img
+        v-if="getFace()"
+        :src="`http://localhost:8000/media/` + userImg"
+        class="avatar"
+      />
+    </div>
+    <div class="face" v-else>
+      <div class="see">
+        <video id="myVideo" muted loop playsinline></video>
+        <canvas id="myCanvas" />
+      </div>
+      <div class="option">
+        <div class="btn">
+          <!-- <label>面板操作：</label> -->
+          <el-button type="primary" @click="fnOpen">启动摄像头</el-button>
+          <el-button type="primary" @click="fnClose">关闭摄像头</el-button>
+        </div>
+        <div class="upload">
+          <el-button class="up" type="success" @click="fnSign">上传</el-button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -121,7 +144,55 @@ export default {
         allow: "PUT, OPTIONS",
       },
       valueUrl: "",
+      videoEl: null,
+      canvasEl: null,
+      timeout: 0,
+      // 视频媒体参数配置
+      constraints: {
+        audio: false,
+        video: {
+          // ideal（应用最理想的）
+          width: {
+            min: 320,
+            ideal: 250,
+            max: 1920,
+          },
+          height: {
+            min: 240,
+            ideal: 200,
+            max: 1080,
+          },
+          // frameRate受限带宽传输时，低帧率可能更适宜
+          frameRate: {
+            min: 15,
+            ideal: 30,
+            max: 60,
+          },
+          // 显示模式前置后置
+          facingMode: "environment",
+        },
+      },
     };
+  },
+  watch: {
+    nets(val) {
+      this.nets = val;
+      this.fnInit();
+    },
+    detection(val) {
+      this.detection = val;
+      this.videoEl.pause();
+      setTimeout(() => {
+        this.videoEl.play();
+        setTimeout(() => this.fnRun(), 300);
+      }, 300);
+    },
+  },
+  mounted() {
+    this.getUserImg();
+    this.$nextTick(() => {
+      this.fnInit();
+    });
   },
   methods: {
     getsex() {
@@ -260,9 +331,80 @@ export default {
     getFace() {
       return this.imageUrl !== "http://localhost:8000/media/";
     },
-  },
-  mounted() {
-    this.getUserImg();
+
+    // 初始化模型加载
+    async fnInit() {
+      // 根据算法模型参数识别调整结果
+
+      // 节点属性化
+      this.videoEl = document.getElementById("myVideo");
+      this.canvasEl = document.getElementById("myCanvas");
+    },
+
+    // 启动摄像头视频媒体
+    fnOpen() {
+      if (typeof window.stream === "object") return;
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+        clearTimeout(this.timeout);
+        navigator.mediaDevices
+          .getUserMedia(this.constraints)
+          .then(this.fnSuccess)
+          .catch(this.fnError);
+      }, 300);
+    },
+    // 成功启动视频媒体流
+    fnSuccess(stream) {
+      window.stream = stream; // 使流对浏览器控制台可用
+      this.videoEl.srcObject = stream;
+      this.videoEl.play();
+    },
+    // 失败启动视频媒体流
+    fnError(error) {
+      console.log(error);
+      alert("视频媒体流获取错误" + error);
+    },
+    // 结束摄像头视频媒体
+    fnSign() {
+      // this.canvasEl
+      //   .getContext("2d")
+      //   .clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
+      this.canvasEl.height = 220
+      this.canvasEl.getContext("2d").drawImage(this.videoEl, 0, 0,this.canvasEl.width, this.canvasEl.height);
+      // 获取图片base64链接
+      const image = this.canvasEl.toDataURL("image/jpg").split(",")[1];
+      console.log(this.canvasEl.width, this.canvasEl.height);
+
+       put({
+          url: "/user/1/",
+          data: { face: image },
+          headers: { "X-CSRFToken": getCookie("csrftoken") },
+        }).then((response)=>{
+          console.log(response);
+        })
+         
+     
+
+      this.videoEl.pause();
+      clearTimeout(this.timeout);
+      if (typeof window.stream === "object") {
+        window.stream.getTracks().forEach((track) => track.stop());
+        window.stream = "";
+        this.videoEl.srcObject = null;
+      }
+    },
+    fnClose() {
+      this.canvasEl
+        .getContext("2d")
+        .clearRect(0, 0, this.canvasEl.width, this.canvasEl.height);
+      this.videoEl.pause();
+      clearTimeout(this.timeout);
+      if (typeof window.stream === "object") {
+        window.stream.getTracks().forEach((track) => track.stop());
+        window.stream = "";
+        this.videoEl.srcObject = null;
+      }
+    },
   },
 };
 </script>
@@ -280,6 +422,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    // background: olive;
 
     .user-info {
       padding: 20px;
@@ -330,9 +473,52 @@ export default {
     }
 
     .avatar {
-      width: 178px;
-      height: 200px;
+      // width: 250px;
+      height: 220px;
       display: block;
+    }
+  }
+}
+
+.face {
+  width: 250px;
+  height: 200px;
+  // margin: 20px auto;
+}
+
+.see {
+  position: relative;
+  // background-color: red;
+  margin: 50px auto;
+  width: 250px;
+  height: 200px;
+  #myCanvas {
+    width: 250px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    display: block;
+    // background-color: #42b983;
+  }
+  #myVideo {
+    width: 250px;
+    height: 200px;
+    display: block;
+    background-color: black;
+  }
+}
+.option {
+  margin-top: -40px;
+  .btn {
+    display: flex;
+    justify-content: space-around;
+  }
+  .upload {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    .up {
+      width: 95%;
     }
   }
 }
